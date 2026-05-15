@@ -1,11 +1,11 @@
-# MEGA888 Play For Fun — Project Brief
+# MegaGamee — Project Brief
 
 ## Overview
-A browser-based mini-game arcade for MEGA888 brand awareness, designed to be shared on Telegram. Players visit a **hub page**, choose from 4 games, and play. The games themselves contain **no CTAs, no popups, no lead capture**. The only outbound link lives in a persistent footer (Join Telegram). The header carries the MEGA888 logo and a small "PLAY FOR FUN" tag, no outbound CTA.
+A browser-based mini-game arcade for MegaGamee brand awareness, designed to be shared on Telegram. Players visit a **hub page**, choose from 4 games, and play. The games themselves contain **no CTAs, no popups, no lead capture**. The only outbound link lives in a persistent footer (Join Telegram). The header carries the MegaGamee logo and a small "PLAY FOR FUN" tag, no outbound CTA.
 
 ## Goals
 1. **Engagement** — fun, replayable games that get shared on Telegram
-2. **Brand exposure** — MEGA888 logo always visible without interrupting gameplay
+2. **Brand exposure** — MegaGamee logo always visible without interrupting gameplay
 3. **Affiliate attribution** — `?aff=...`, `?utm_*` passed through to the Telegram outbound link
 4. **Lightweight** — fast loads on Malaysian 4G, mobile-first
 
@@ -62,10 +62,10 @@ A browser-based mini-game arcade for MEGA888 brand awareness, designed to be sha
 ### Layout
 ```
 ┌─────────────────────────────────────────────┐
-│  [MEGA888 Logo]              [PLAY FOR FUN] │  ← header
+│  [MegaGamee Logo]              [PLAY FOR FUN] │  ← header
 ├─────────────────────────────────────────────┤
 │                                             │
-│      🎮 MEGA888 PLAY FOR FUN                │
+│           🎮 MegaGamee                       │
 │       Pick a game. Beat your high score.    │
 │                                             │
 │   ┌───────┐  ┌───────┐                      │
@@ -98,7 +98,7 @@ A browser-based mini-game arcade for MEGA888 brand awareness, designed to be sha
 ### Behavior
 - Injected into every page (hub + all 4 games)
 - Contains:
-  - **MEGA888 logo** (top-left, links to hub `/`)
+  - **MegaGamee logo** (top-left, links to hub `/`)
   - **"PLAY FOR FUN" tag** (top-right, decorative — not a link)
 - Sticky position
 - Mobile: compact, no clutter
@@ -106,7 +106,7 @@ A browser-based mini-game arcade for MEGA888 brand awareness, designed to be sha
 ### Example
 ```html
 <header class="ocs8-header">
-  <a href="/" class="logo" aria-label="MEGA888 home">MEGA<span>888</span></a>
+  <a href="/" class="logo" aria-label="MegaGamee home">Mega<span>Gamee</span></a>
   <span class="brand-tag">PLAY FOR FUN</span>
 </header>
 ```
@@ -118,7 +118,7 @@ A browser-based mini-game arcade for MEGA888 brand awareness, designed to be sha
 ### Behavior
 - Injected into every page
 - Contains:
-  - "Join Telegram" button (link to MEGA888 Telegram channel)
+  - "Join Telegram" button (link to MegaGamee Telegram channel)
 - Bottom of viewport on hub
 - Bottom of viewport on game pages but **minimized / collapsible** so it doesn't obstruct gameplay (tap the small tab to expand)
 
@@ -129,7 +129,7 @@ A browser-based mini-game arcade for MEGA888 brand awareness, designed to be sha
 ### Logic
 On page load:
 1. Read URL params: `aff`, `utm_source`, `utm_medium`, `utm_campaign`
-2. If present, save to `sessionStorage` as `mega888_arcade_params`
+2. If present, save to `sessionStorage` as `megagamee_arcade_params`
 3. Find all elements with class `cta-btn` or `aff-link`
 4. Append stored params to their `href`
 
@@ -160,7 +160,7 @@ Example: a player landing on `/?aff=mega888a&utm_source=telegram` and clicking "
 
 ### Scoring
 - +1 per frame alive
-- High score saved as `mega888_dino_high_score`
+- High score saved as `megagamee_dino_high_score`
 
 ### Game Over
 - Shows: "GAME OVER · Score: X · High: Y · [PLAY AGAIN] [← BACK TO ARCADE]"
@@ -187,7 +187,7 @@ Example: a player landing on `/?aff=mega888a&utm_source=telegram` and clicking "
 
 ### Scoring
 - +1 per pipe passed
-- High score saved as `mega888_flappy_high_score`
+- High score saved as `megagamee_flappy_high_score`
 
 ### Game Over
 - Shows: "GAME OVER · Score: X · High: Y · [PLAY AGAIN] [← BACK TO ARCADE]"
@@ -213,7 +213,7 @@ Example: a player landing on `/?aff=mega888a&utm_source=telegram` and clicking "
 
 ### Scoring
 - +10 per food eaten
-- High score saved as `mega888_snake_high_score`
+- High score saved as `megagamee_snake_high_score`
 
 ### Controls
 - Desktop: arrow keys (+ WASD)
@@ -245,7 +245,7 @@ Example: a player landing on `/?aff=mega888a&utm_source=telegram` and clicking "
 ### Scoring
 - +1 per block stacked
 - +5 bonus for perfect alignment
-- High score saved as `mega888_stack_high_score`
+- High score saved as `megagamee_stack_high_score`
 
 ### Controls
 - Desktop: spacebar
@@ -267,7 +267,7 @@ All 4 games must follow these rules:
 5. **Touch-friendly** — all controls must work on mobile
 6. **60fps target** on mid-range Android
 7. **No external assets** in Phase 1 — use Canvas drawing only (shapes, colors)
-8. **High score** persists in localStorage with key `mega888_[game]_high_score`
+8. **High score** persists in localStorage with key `megagamee_[game]_high_score`
 9. **Theme consistency** — same color palette across all games
 
 ### Shared Color Palette
@@ -294,7 +294,7 @@ All 4 games must follow these rules:
 - [ ] Deployable to Cloudflare Pages
 
 ## Phase 2 (later)
-- Real MEGA888 brand assets / icons replacing emoji
+- Real MegaGamee brand assets / icons replacing emoji
 - Sound effects (with mute toggle)
 - Cloudflare Worker + KV for global leaderboard
 - "Daily challenge" featured game on hub

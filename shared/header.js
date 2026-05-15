@@ -1,6 +1,8 @@
-// Injects the shared MEGA888 header into every page.
+// Injects the shared MegaGamee header into every page.
 // Logo links back to the hub. No outbound CTA in the header — the only
 // outbound link lives in the footer (Join Telegram).
+// NOTE: this is a placeholder header; the planned redesign swaps the logo for
+// a Telegram-style profile (avatar + name + @username) on the left.
 
 (function () {
   'use strict';
@@ -14,13 +16,13 @@
   const header = document.createElement('header');
   header.className = 'ocs8-header';
   header.innerHTML = `
-    <a href="${hubHref}" class="logo" aria-label="MEGA888 home">MEGA<span>888</span></a>
+    <a href="${hubHref}" class="logo" aria-label="MegaGamee home">Mega<span>Gamee</span></a>
     <span class="brand-tag">PLAY FOR FUN</span>
   `;
 
   function mount() {
     document.body.prepend(header);
-    if (window.MEGA888Tracking) window.MEGA888Tracking.decorate(header);
+    if (window.MegaGameeTracking) window.MegaGameeTracking.decorate(header);
   }
 
   if (document.readyState === 'loading') {

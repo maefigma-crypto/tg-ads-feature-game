@@ -1,11 +1,11 @@
-// Injects the shared MEGA888 footer into every page.
+// Injects the shared MegaGamee footer into every page.
 // On game pages, the footer starts collapsed to a thin strip so it doesn't
 // block gameplay; tapping the tab expands it.
 
 (function () {
   'use strict';
 
-  const TELEGRAM_URL = 'https://t.me/mega888'; // TODO: replace with real channel handle
+  const TELEGRAM_URL = 'https://t.me/megagamee'; // TODO: replace with real channel handle
 
   // Treat any page whose path contains "/games/" as a game page.
   const isGamePage = location.pathname.includes('/games/');
@@ -19,7 +19,7 @@
 
   function mount() {
     document.body.appendChild(footer);
-    if (window.MEGA888Tracking) window.MEGA888Tracking.decorate(footer);
+    if (window.MegaGameeTracking) window.MegaGameeTracking.decorate(footer);
 
     const toggle = footer.querySelector('.toggle');
     if (toggle) {

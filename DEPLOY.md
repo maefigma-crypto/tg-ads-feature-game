@@ -102,7 +102,7 @@ In Cloudflare Pages project:
 Open the URL in your phone browser. Check:
 - Hub loads, all 4 game cards visible
 - Tap each card → game opens and plays
-- MEGA888 header + "PLAY FOR FUN" tag visible on every page
+- MegaGamee header visible on every page
 - "Join Telegram" footer button visible (collapsed strip on game pages)
 - Test affiliate params: `https://your-url.com/?aff=mega888a&utm_source=test`
   - Click a game, then click the Telegram footer button

@@ -1,11 +1,11 @@
-// Affiliate / UTM param flow for MEGA888.
+// Affiliate / UTM param flow for MegaGamee.
 // Run as early as possible on every page so params are captured before
 // any outbound clicks (e.g. user taps the Telegram button immediately).
 
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'mega888_arcade_params';
+  const STORAGE_KEY = 'megagamee_arcade_params';
   const TRACKED = ['aff', 'utm_source', 'utm_medium', 'utm_campaign'];
 
   function readFromUrl() {
@@ -68,7 +68,7 @@
   const params = merge(readFromUrl(), loadStored());
   if (params) save(params);
 
-  window.MEGA888Tracking = {
+  window.MegaGameeTracking = {
     getParams() { return params; },
     decorate(scope) {
       if (!params) return;

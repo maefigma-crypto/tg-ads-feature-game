@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  const HS_KEY = 'mega888_dino_high_score';
+  const HS_KEY = 'megagamee_dino_high_score';
   const LOGICAL_W = 800;
   const LOGICAL_H = 300;
   const GROUND_Y = 250;

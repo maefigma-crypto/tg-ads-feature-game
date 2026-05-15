@@ -1,12 +1,12 @@
-# MEGA888 Play For Fun
+# MegaGamee
 
-A mini-game arcade hub for MEGA888 brand awareness, optimized for sharing on Telegram. Players land on the hub, pick a game, play, come back. The only outbound link is a "Join Telegram" button in the footer — never inside the games.
+A mini-game arcade hub for MegaGamee brand awareness, optimized for sharing on Telegram. Players land on the hub, pick a game, play, come back. The only outbound link is a "Join Telegram" button in the footer — never inside the games.
 
 ## What's in this repo
 
-- **Hub page** — grid of game cards, MEGA888 logo + "PLAY FOR FUN" tag in header
+- **Hub page** — grid of game cards, MegaGamee logo + "PLAY FOR FUN" tag in header
 - **4 games** — Dino Runner, Flappy, Snake, Stack Tower
-- **Shared header/footer** — MEGA888 branding + Telegram link
+- **Shared header/footer** — MegaGamee branding + Telegram link
 - **Affiliate tracking** — `?aff=` / `?utm_*` params preserved on the Telegram link
 
 ## Tech
@@ -35,7 +35,7 @@ npx serve .
 ├── index.html              # Hub page
 ├── style.css               # Shared styles
 ├── shared/
-│   ├── header.js           # Header with MEGA888 logo + PLAY FOR FUN tag
+│   ├── header.js           # Header with MegaGamee logo + PLAY FOR FUN tag
 │   ├── footer.js           # Footer with Join Telegram button
 │   └── tracking.js         # Affiliate param handler
 ├── games/

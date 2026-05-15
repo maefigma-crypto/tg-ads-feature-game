@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  const HS_KEY = 'mega888_snake_high_score';
+  const HS_KEY = 'megagamee_snake_high_score';
   const GRID = 20;
   const CELL = 20;
   const LOGICAL_W = GRID * CELL; // 400

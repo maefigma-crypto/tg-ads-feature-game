@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  const HS_KEY = 'mega888_stack_high_score';
+  const HS_KEY = 'megagamee_stack_high_score';
   const LOGICAL_W = 400;
   const LOGICAL_H = 600;
 

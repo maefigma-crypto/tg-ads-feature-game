@@ -1,9 +1,9 @@
-# CLAUDE.md — MEGA888 Play For Fun
+# CLAUDE.md — MegaGamee
 
 Read this first. Then read `BRIEF.md` for the full spec.
 
 ## Project
-A 4-game arcade hub for MEGA888 brand awareness, designed for sharing on Telegram. Hub page → links to 4 games (Dino, Flappy, Snake, Stack Tower). No CTAs inside the games — only a "Join Telegram" button in the shared footer.
+A 4-game arcade hub for MegaGamee brand awareness, designed for sharing on Telegram. Hub page → links to 4 games (Dino, Flappy, Snake, Stack Tower). No CTAs inside the games — only a "Join Telegram" button in the shared footer.
 
 ## Stack
 - Vanilla HTML / CSS / JavaScript only
@@ -32,7 +32,7 @@ A 4-game arcade hub for MEGA888 brand awareness, designed for sharing on Telegra
 ## File Map
 - `index.html` — hub page
 - `style.css` — shared theme + hub layout
-- `shared/header.js` — injects header into every page (MEGA888 logo + PLAY FOR FUN tag)
+- `shared/header.js` — injects header into every page (MegaGamee logo + PLAY FOR FUN tag)
 - `shared/footer.js` — injects footer into every page (Join Telegram button)
 - `shared/tracking.js` — affiliate param flow
 - `games/[name]/index.html` — game entry point
@@ -67,16 +67,16 @@ Always preserve these from URL → outbound clicks:
 - `utm_source`, `utm_medium`, `utm_campaign`
 
 Flow:
-1. Page load → `tracking.js` reads URL params → saves to `sessionStorage` as `mega888_arcade_params`
+1. Page load → `tracking.js` reads URL params → saves to `sessionStorage` as `megagamee_arcade_params`
 2. `tracking.js` finds all `.cta-btn` and `.aff-link` elements → appends params to `href`
 3. This runs on every page (hub + games) so params persist across navigation
 4. With the current header (no CTA) + footer (Telegram only), the Telegram link is the main outbound that receives the params
 
 ## High Score Keys (localStorage)
-- `mega888_dino_high_score`
-- `mega888_flappy_high_score`
-- `mega888_snake_high_score`
-- `mega888_stack_high_score`
+- `megagamee_dino_high_score`
+- `megagamee_flappy_high_score`
+- `megagamee_snake_high_score`
+- `megagamee_stack_high_score`
 
 The hub reads all four to display on game cards.
 
