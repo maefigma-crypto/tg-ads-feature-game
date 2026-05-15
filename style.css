@@ -7,7 +7,7 @@
   --white: #ecf0f1;
   --text-on-dark: #ffffff;
   --text-on-gold: #0a0e27;
-  --header-h: 56px;
+  --header-h: 0px;
   --footer-h: 64px;
 }
 
@@ -313,7 +313,7 @@ html { scroll-behavior: smooth; }
 /* ---------- Back to arcade (game pages) ---------- */
 .back-link {
   position: fixed;
-  top: calc(var(--header-h) + 8px);
+  top: calc(var(--header-h) + 12px);
   left: 12px;
   z-index: 50;
   font-size: 12px;
