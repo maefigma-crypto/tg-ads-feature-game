@@ -6,8 +6,8 @@
 
   const HS_KEY = 'megagamee_dino_high_score';
   const LOGICAL_W = 800;
-  const LOGICAL_H = 300;
-  const GROUND_Y = 250;
+  const LOGICAL_H = 600;
+  const GROUND_Y = 500;
 
   // Tuning
   const GRAVITY = 2200;          // px/s^2
@@ -66,7 +66,7 @@
   let skyline = [];
   function seedBackground() {
     stars = [];
-    for (let i = 0; i < 28; i++) {
+    for (let i = 0; i < 55; i++) {
       stars.push({ x: Math.random() * LOGICAL_W, y: Math.random() * (GROUND_Y - 30), r: Math.random() * 1.4 + 0.4 });
     }
     skyline = [];
