@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local
+.env
+.env.local
+*.log
+
+# No build output yet — pure static site
+node_modules/

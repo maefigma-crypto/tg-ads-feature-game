@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0e27" />
+  <title>MEGA888 &middot; Play For Fun</title>
+  <meta name="description" content="MEGA888 Play For Fun &mdash; mini-game arcade. Dino Runner, Flappy, Snake, Stack Tower." />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./shared/tracking.js" defer></script>
+  <script src="./shared/header.js" defer></script>
+  <script src="./shared/footer.js" defer></script>
+</head>
+<body data-hub-href="./">
+  <main class="hub">
+    <h1>MEGA888 PLAY FOR FUN</h1>
+    <p class="tagline">Pick a game. Beat your high score.</p>
+
+    <div class="game-grid">
+      <a href="./games/dino/" class="game-card" data-game="dino">
+        <div class="emoji" aria-hidden="true">&#129422;</div>
+        <div class="name">DINO</div>
+        <div class="hs" data-hs-key="mega888_dino_high_score">HS: &mdash;</div>
+      </a>
+      <a href="./games/flappy/" class="game-card" data-game="flappy">
+        <div class="emoji" aria-hidden="true">&#128038;</div>
+        <div class="name">FLAPPY</div>
+        <div class="hs" data-hs-key="mega888_flappy_high_score">HS: &mdash;</div>
+      </a>
+      <a href="./games/snake/" class="game-card" data-game="snake">
+        <div class="emoji" aria-hidden="true">&#128013;</div>
+        <div class="name">SNAKE</div>
+        <div class="hs" data-hs-key="mega888_snake_high_score">HS: &mdash;</div>
+      </a>
+      <a href="./games/stack/" class="game-card" data-game="stack">
+        <div class="emoji" aria-hidden="true">&#128230;</div>
+        <div class="name">STACK</div>
+        <div class="hs" data-hs-key="mega888_stack_high_score">HS: &mdash;</div>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    // Populate high scores from localStorage on each card.
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('[data-hs-key]').forEach((el) => {
+        const key = el.getAttribute('data-hs-key');
+        const v = localStorage.getItem(key);
+        if (v && Number(v) > 0) {
+          el.textContent = `HS: ${v}`;
+        } else {
+          el.classList.add('empty');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

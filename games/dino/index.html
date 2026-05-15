@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0a0e27" />
+  <title>Dino Runner &middot; MEGA888</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <script src="../../shared/tracking.js" defer></script>
+  <script src="../../shared/header.js" defer></script>
+  <script src="../../shared/footer.js" defer></script>
+  <script src="./game.js" defer></script>
+</head>
+<body>
+  <a href="../../" class="back-link">&larr; BACK TO ARCADE</a>
+
+  <main class="game-wrap">
+    <canvas id="game" width="800" height="300" aria-label="Dino Runner game"></canvas>
+
+    <div class="hud">
+      <span class="score" id="score">0</span>
+      <span class="hs" id="hs">HS 0</span>
+    </div>
+
+    <div class="overlay" id="overlay">
+      <div class="overlay-inner">
+        <h2 id="overlay-title">DINO RUNNER</h2>
+        <p id="overlay-msg">Tap or press Space to jump.<br>Swipe down or press &darr; to duck.</p>
+        <button class="play-btn" id="play-btn">START</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
