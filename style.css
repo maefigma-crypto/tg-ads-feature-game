@@ -315,7 +315,7 @@ html { scroll-behavior: smooth; }
   position: fixed;
   top: calc(var(--header-h) + 12px);
   left: 12px;
-  z-index: 50;
+  z-index: 100;
   font-size: 12px;
   color: var(--white);
   opacity: 0.75;
