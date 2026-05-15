@@ -148,6 +148,33 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   letter-spacing: 1.5px;
 }
 
+.hub h1.brand-banner {
+  margin: 0 auto 18px;
+  padding: 0;
+  line-height: 0;
+  max-width: 720px;
+}
+
+.hub h1.brand-banner a {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.hub h1.brand-banner a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(212, 175, 55, 0.18);
+}
+
+.hub h1.brand-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+html { scroll-behavior: smooth; }
+
 .hub .tagline {
   color: var(--white);
   opacity: 0.7;
