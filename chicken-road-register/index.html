@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="robots" content="noindex, nofollow" />
+<title>OCS8 · Chicken Road Bonus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --road:#242832; --road-2:#1a1d25; --lane:#f2c94c;
+    --gold:#ffd451; --gold-deep:#f5a623; --gold-soft:#ffe9a8;
+    --green:#33d17a; --green-deep:#1fa85f;
+    --red:#ff5a5f; --ink:#0c0e13; --panel:#141821;
+    --txt:#fff; --muted:#9aa3b2;
+    --brand-red:#c0202c;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:radial-gradient(120% 80% at 50% -10%, #2b3040 0%, var(--ink) 60%);
+    color:var(--txt); overflow:hidden; position:fixed; inset:0;
+    display:flex; justify-content:center;
+  }
+  .impact{font-family:'Anton',Impact,'Arial Black',sans-serif;font-weight:400;letter-spacing:.5px}
+
+  .stage{
+    width:100%; max-width:460px; height:100%;
+    display:flex; flex-direction:column; position:relative;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 16px 8px;
+  }
+  .brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:18px}
+  .brand .logo{
+    width:30px;height:30px;border-radius:8px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+    color:var(--ink); display:grid; place-items:center;
+    font-family:'Anton',sans-serif; font-size:16px;
+    box-shadow:0 4px 14px rgba(245,166,35,.4);
+  }
+  .brand b{color:var(--gold)}
+  .bonus-pill{
+    background:linear-gradient(180deg,#2a2f3c,#1c212c);
+    border:1px solid rgba(255,212,81,.35);
+    border-radius:999px; padding:6px 12px 6px 10px;
+    display:flex;align-items:center;gap:8px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .bonus-pill .label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;line-height:1}
+  .bonus-pill .amt{font-family:'Anton',sans-serif;font-size:19px;color:var(--gold);line-height:1}
+
+  /* ---------- Headline ---------- */
+  .headline{text-align:center;padding:2px 20px 10px}
+  .headline h1{font-size:24px;line-height:1.05;text-transform:uppercase}
+  .headline h1 span{color:var(--gold)}
+  .headline p{font-size:12px;color:var(--muted);margin-top:5px}
+
+  /* ---------- Road ---------- */
+  .road-wrap{flex:1;position:relative;overflow:hidden;margin:0 12px;border-radius:18px 18px 0 0;
+    background:linear-gradient(180deg,#2d3340 0%, var(--road) 12%, var(--road) 100%);
+    box-shadow:inset 0 10px 30px rgba(0,0,0,.5);}
+  .road{position:absolute;inset:0}
+  .lane{position:absolute;left:0;right:0;border-top:2px dashed rgba(242,201,76,.35)}
+  .curb{position:absolute;top:0;bottom:0;width:6px;background:repeating-linear-gradient(180deg,#e7ecf3 0 14px,var(--brand-red) 14px 28px);opacity:.55}
+  .curb.l{left:0}.curb.r{right:0}
+
+  /* tier flags on right edge */
+  .flag{position:absolute;right:10px;transform:translateY(-50%);
+    display:flex;align-items:center;gap:6px;transition:.25s}
+  .flag .tag{font-family:'Anton',sans-serif;font-size:13px;padding:2px 8px;border-radius:6px;
+    background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);color:var(--muted)}
+  .flag.hit .tag{background:linear-gradient(180deg,var(--gold),var(--gold-deep));color:var(--ink);border-color:var(--gold-soft);box-shadow:0 0 14px rgba(255,212,81,.6)}
+  .flag .ico{font-size:15px;opacity:.5}
+  .flag.hit .ico{opacity:1}
+
+  /* cars */
+  .car{position:absolute;font-size:26px;transform:translateY(-50%);will-change:transform;filter:drop-shadow(0 3px 4px rgba(0,0,0,.5))}
+
+  /* chicken */
+  #chick{position:absolute;left:50%;font-size:34px;transform:translate(-50%,-50%);
+    transition:top .28s cubic-bezier(.34,1.56,.64,1), left .2s ease;
+    filter:drop-shadow(0 4px 5px rgba(0,0,0,.55)); z-index:5;}
+  #chick.hop{animation:hop .3s ease}
+  @keyframes hop{0%{scale:1}45%{scale:1.25}100%{scale:1}}
+  .puff{position:absolute;font-size:20px;transform:translate(-50%,-50%);pointer-events:none;
+    animation:puff .5s ease forwards;z-index:4}
+  @keyframes puff{from{opacity:.9;scale:.6}to{opacity:0;scale:1.6;translate:0 -18px}}
+
+  .start-line{position:absolute;left:6px;right:6px;height:16px;
+    background:repeating-linear-gradient(90deg,#fff 0 10px,#111 10px 20px);opacity:.85}
+
+  /* ---------- Controls ---------- */
+  .controls{padding:12px 16px calc(14px + env(safe-area-inset-bottom));background:var(--road-2)}
+  .cta{
+    width:100%;border:0;border-radius:14px;padding:16px;
+    font-family:'Anton',sans-serif;font-size:22px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--ink);cursor:pointer;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,var(--gold),var(--gold-deep));
+    box-shadow:0 6px 0 #b9781a,0 10px 22px rgba(245,166,35,.4);
+    transition:transform .06s, box-shadow .06s;
+  }
+  .cta:active{transform:translateY(4px);box-shadow:0 2px 0 #b9781a,0 6px 14px rgba(245,166,35,.35)}
+  .cta.go{background:linear-gradient(180deg,var(--green),var(--green-deep));box-shadow:0 6px 0 #12693b,0 10px 22px rgba(51,209,122,.4)}
+  .cta.go:active{box-shadow:0 2px 0 #12693b}
+  .cta .shine{position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);
+    animation:shine 2.6s infinite}
+  @keyframes shine{0%{left:-60%}55%,100%{left:130%}}
+  .hint{text-align:center;color:var(--muted);font-size:11px;margin-top:9px;min-height:14px}
+
+  /* ---------- Modal ---------- */
+  .modal{position:fixed;inset:0;background:rgba(6,8,12,.82);backdrop-filter:blur(4px);
+    display:none;place-items:center;padding:24px;z-index:50}
+  .modal.show{display:grid;animation:fade .3s}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .card{width:100%;max-width:340px;text-align:center;position:relative;
+    background:linear-gradient(180deg,#1e2430,#141922);
+    border:1px solid rgba(255,212,81,.4);border-radius:22px;padding:30px 22px 24px;
+    box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(255,212,81,.15);animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+  .card .crown{font-size:44px;filter:drop-shadow(0 4px 8px rgba(255,212,81,.5))}
+  .card h2{font-size:18px;margin:8px 0 2px;text-transform:uppercase;letter-spacing:.5px}
+  .card .big{font-family:'Anton',sans-serif;font-size:58px;color:var(--gold);line-height:1;margin:6px 0 4px;text-shadow:0 4px 18px rgba(245,166,35,.5)}
+  .card small{color:var(--muted);font-size:12px}
+  .card .claim{margin-top:20px}
+  .card .redir{color:var(--muted);font-size:10px;margin-top:12px;letter-spacing:.5px}
+  .conf{position:fixed;top:-10px;font-size:16px;pointer-events:none;z-index:49;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(105vh) rotate(540deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="topbar">
+    <div class="brand"><span class="logo">8</span>OCS<b>8</b></div>
+    <div class="bonus-pill">
+      <div>
+        <div class="label">Bonus</div>
+        <div class="amt">RM<span id="bonusVal">188</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="headline">
+    <h1>Cross the Road,<br><span>Win up to RM888</span></h1>
+    <p>Hop the chicken across every lane to unlock your bonus.</p>
+  </div>
+
+  <div class="road-wrap">
+    <div class="road" id="road">
+      <span class="curb l"></span><span class="curb r"></span>
+      <!-- lanes, flags, cars, chicken injected by JS -->
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="cta" id="cta"><span class="shine"></span>Start the Challenge</button>
+    <div class="hint" id="hint">Tap to begin</div>
+  </div>
+</div>
+
+<!-- Win modal -->
+<div class="modal" id="modal">
+  <div class="card">
+    <div class="crown">👑</div>
+    <h2>Congratulations!</h2>
+    <small>You unlocked the maximum bonus</small>
+    <div class="big">RM888</div>
+    <button class="cta go claim" id="claim"><span class="shine"></span>Claim Bonus Now</button>
+    <div class="redir" id="redir">Redirecting to OCS8 Malaysia…</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   OCS8 CHICKEN ROAD — CONFIG (edit these 3 things only)
+   ============================================================ */
+const CONFIG = {
+  // Where "Claim Bonus" sends the player. Put your OCS8 register/landing URL here.
+  DESTINATION: "https://ocs8winwinwin.shop/",
+
+  // true = copy every incoming ?param (clickid, value, source id, etc.)
+  //        onto the destination so affiliate tracking survives the redirect.
+  PASS_THROUGH_PARAMS: true,
+
+  // Auto-redirect delay after the modal shows, in ms (0 = wait for tap only).
+  AUTO_REDIRECT_MS: 0
+};
+
+/* Tier thresholds mapped to lane index (0 = start line, top lane = win) */
+const TIERS = [
+  { lane: 0, amt: 188 },
+  { lane: 2, amt: 333 },
+  { lane: 4, amt: 588 },
+  { lane: 6, amt: 888 }   // final lane = max bonus
+];
+const TOTAL_LANES = 6;              // hops needed to reach the top
+const CAR_EMOJIS = ["🚗","🚙","🚕","🚓","🚌","🚚"];
+
+/* ---------- Build the affiliate-preserving destination URL ---------- */
+function buildDestination(){
+  const dest = new URL(CONFIG.DESTINATION);
+  if (CONFIG.PASS_THROUGH_PARAMS){
+    const incoming = new URLSearchParams(window.location.search);
+    incoming.forEach((v,k)=> dest.searchParams.set(k, v));
+  }
+  return dest.toString();
+}
+
+/* ---------- Layout ---------- */
+const road = document.getElementById('road');
+let laneY = [];        // pixel center of each lane, index 0 = bottom start
+function layout(){
+  const h = road.clientHeight;
+  const pad = 40;
+  const usable = h - pad*2;
+  laneY = [];
+  for(let i=0;i<=TOTAL_LANES;i++){
+    laneY[i] = h - pad - (usable * i / TOTAL_LANES);
+  }
+  render();
+}
+
+function render(){
+  road.querySelectorAll('.lane,.flag,.start-line,.chk-tmp').forEach(e=>e.remove());
+  // start line
+  const sl=document.createElement('div');
+  sl.className='start-line'; sl.style.top=(laneY[0]+18)+'px'; road.appendChild(sl);
+  // lane dividers
+  for(let i=1;i<=TOTAL_LANES;i++){
+    const l=document.createElement('div'); l.className='lane';
+    l.style.top=laneY[i]+'px'; road.appendChild(l);
+  }
+  // tier flags
+  TIERS.forEach(t=>{
+    const f=document.createElement('div'); f.className='flag'; f.dataset.lane=t.lane;
+    f.style.top=laneY[t.lane]+'px';
+    f.innerHTML=`<span class="ico">${t.amt===888?'👑':'🏁'}</span><span class="tag">RM${t.amt}</span>`;
+    road.appendChild(f);
+  });
+  if(chick){ chick.style.top=laneY[pos]+'px'; }
+  refreshFlags();
+}
+
+/* ---------- Chicken + state ---------- */
+let chick=document.createElement('div');
+chick.id='chick'; chick.textContent='🐔'; road.appendChild(chick);
+let pos=0, started=false, won=false;
+
+function currentBonus(){
+  let amt=TIERS[0].amt;
+  TIERS.forEach(t=>{ if(pos>=t.lane) amt=t.amt; });
+  return amt;
+}
+function refreshFlags(){
+  document.querySelectorAll('.flag').forEach(f=>{
+    f.classList.toggle('hit', pos >= +f.dataset.lane);
+  });
+}
+function updateBonus(){
+  document.getElementById('bonusVal').textContent=currentBonus();
+}
+
+/* ---------- Cars (ambient danger) ---------- */
+function spawnCar(){
+  if(won) return;
+  const lane = 1 + Math.floor(Math.random()*(TOTAL_LANES-1));
+  const dir = Math.random()<.5?1:-1;
+  const car=document.createElement('div'); car.className='car';
+  car.textContent=CAR_EMOJIS[Math.floor(Math.random()*CAR_EMOJIS.length)];
+  car.style.top=laneY[lane]+'px';
+  car.style.transform=`translateY(-50%) scaleX(${dir})`;
+  const w=road.clientWidth;
+  car.style.left = dir>0 ? -40+'px' : (w+10)+'px';
+  road.appendChild(car);
+  const dur=1400+Math.random()*1200;
+  car.animate(
+    [{left:car.style.left},{left:(dir>0?w+40:-50)+'px'}],
+    {duration:dur,easing:'linear'}
+  ).onfinish=()=>car.remove();
+}
+let carTimer;
+
+/* ---------- Actions ---------- */
+const cta=document.getElementById('cta');
+const hint=document.getElementById('hint');
+
+function start(){
+  started=true;
+  cta.classList.add('go');
+  cta.querySelector('.shine')?.remove();
+  cta.childNodes[cta.childNodes.length-1].nodeValue='Hop! 🐔';
+  hint.textContent='Keep tapping to cross the road';
+  carTimer=setInterval(spawnCar, 650);
+}
+
+function puff(){
+  const p=document.createElement('div'); p.className='puff'; p.textContent='💨';
+  p.style.left='50%'; p.style.top=laneY[pos]+'px'; road.appendChild(p);
+  setTimeout(()=>p.remove(),500);
+}
+
+function hop(){
+  if(won) return;
+  if(pos<TOTAL_LANES){
+    pos++;
+    puff();
+    chick.style.top=laneY[pos]+'px';
+    chick.classList.remove('hop'); void chick.offsetWidth; chick.classList.add('hop');
+    if(navigator.vibrate) navigator.vibrate(15);
+    refreshFlags(); updateBonus();
+    const b=currentBonus();
+    hint.textContent = pos>=TOTAL_LANES ? '' : `Bonus climbing… RM${b}`;
+  }
+  if(pos>=TOTAL_LANES) win();
+}
+
+function win(){
+  won=true; clearInterval(carTimer);
+  document.querySelectorAll('.car').forEach(c=>c.remove());
+  chick.textContent='🐓';
+  setTimeout(showModal, 450);
+}
+
+function showModal(){
+  const m=document.getElementById('modal'); m.classList.add('show');
+  confetti();
+  if(CONFIG.AUTO_REDIRECT_MS>0) setTimeout(redirect, CONFIG.AUTO_REDIRECT_MS);
+}
+document.getElementById('claim').addEventListener('click', redirect);
+
+let redirecting=false;
+function redirect(){
+  if(redirecting) return; redirecting=true;
+  document.getElementById('redir').textContent='Redirecting…';
+  window.location.href = buildDestination();
+}
+
+function confetti(){
+  const cols=['🎉','⭐','💰','🎊','👑'];
+  for(let i=0;i<28;i++){
+    const c=document.createElement('div'); c.className='conf';
+    c.textContent=cols[i%cols.length];
+    c.style.left=Math.random()*100+'vw';
+    c.style.animationDuration=(1.8+Math.random()*1.6)+'s';
+    c.style.animationDelay=(Math.random()*.4)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3600);
+  }
+}
+
+/* ---------- Wiring ---------- */
+cta.addEventListener('click',()=> started?hop():start());
+road.addEventListener('click',()=>{ if(started&&!won) hop(); });
+window.addEventListener('resize', layout);
+window.addEventListener('load', ()=>{ layout(); updateBonus(); });
+layout();
+</script>
+</body>
+</html>
