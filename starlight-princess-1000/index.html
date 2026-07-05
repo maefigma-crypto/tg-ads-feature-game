@@ -157,7 +157,6 @@ const CONFIG = {
   PASS_THROUGH_PARAMS: true,                   // copy ?aff/?utm/etc onto destination
   FREE_SPINS: 188,                             // headline free-spin count
   SHOW_MODAL_BEFORE_END_MS: 1200,              // pop congrats this long before the video ends
-  MAX_WAIT_MS: 30000,                          // fallback: pop congrats after this if video can't end
   AUTO_REDIRECT_MS: 0                          // >0 to auto-redirect after modal
 };
 
@@ -224,8 +223,13 @@ video.addEventListener('timeupdate', ()=>{
   if(video.currentTime >= video.duration - (CONFIG.SHOW_MODAL_BEFORE_END_MS/1000)) showWin();
 });
 video.addEventListener('ended', showWin);
-/* fallback if the video stalls or can't play through */
-setTimeout(()=>{ if(!modalShown) showWin(); }, CONFIG.MAX_WAIT_MS);
+/* only fall back to the win screen if the video genuinely fails to load/play */
+video.addEventListener('error', ()=>{ if(!modalShown) setTimeout(showWin, 1500); });
+/* if muted autoplay was blocked, start playback on the first page interaction */
+['touchstart','pointerdown','scroll'].forEach(ev=>document.addEventListener(ev, function once(){
+  if(video.paused && !modalShown) tryPlay();
+  document.removeEventListener(ev, once);
+}, {passive:true}));
 
 function showWin(){
   if(modalShown) return; modalShown=true;
