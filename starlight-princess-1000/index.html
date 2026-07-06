@@ -107,10 +107,18 @@
   .spinBtn img{width:52px;height:auto;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
   .spinBtn.spinning img{animation:rot .8s linear infinite}
   @keyframes rot{to{transform:rotate(360deg)}}
+  /* attention pulse: expanding radar rings around the idle spin button */
+  .spinBtn::before,.spinBtn::after{content:"";position:absolute;inset:-4px;border-radius:50%;
+    border:3px solid rgba(255,236,170,.85);pointer-events:none;animation:spinping 1.7s ease-out infinite}
+  .spinBtn::after{animation-delay:.85s}
+  .spinBtn:disabled::before,.spinBtn:disabled::after{display:none}
+  @keyframes spinping{0%{transform:scale(.92);opacity:.85}80%,100%{transform:scale(1.45);opacity:0}}
   .spinLabel{margin-top:9px;font-family:'Anton',sans-serif;font-size:19px;letter-spacing:3px;color:#fff;
     text-transform:uppercase;text-shadow:0 2px 4px rgba(0,0,0,.7)}
   @keyframes shine{0%{left:-60%}55%,100%{left:140%}}
-  .hint{margin-top:10px;font-size:12px;font-weight:800;color:#ffe9a8;text-shadow:0 1px 3px rgba(0,0,0,.7);min-height:16px;text-align:center}
+  .hint{margin-top:11px;font-family:'Anton',sans-serif;font-size:clamp(19px,5.4vw,25px);letter-spacing:1px;
+    text-transform:uppercase;color:#ffe9a8;text-shadow:0 2px 5px rgba(0,0,0,.85),0 0 16px rgba(255,199,66,.45);
+    min-height:20px;text-align:center}
 
   /* ---------- congrats overlay ---------- */
   .overlay{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;
@@ -218,14 +226,14 @@ document.getElementById('claim').setAttribute('href', buildDestination());
 /* ---------- i18n (EN / 中文) ---------- */
 const I18N={
   en:{ homeAsk:"Looking for our homepage?", enter:"ENTER OCS8", bubble:"Hit the button to try your luck!",
-    hintStart:"Press Spin — land 5 Scatters to win 188 Free Spins", hintSpin:"Spinning the reels…",
-    hintTrigger:"5 Scatters — Free Spins triggered!", spin:"Spin", spinning:"Spinning…",
+    hintStart:"Free to Spin!", hintSpin:"Good luck!",
+    hintTrigger:"Free Spins Triggered!", spin:"Spin", spinning:"Spinning…",
     congrats:"Congratulations", won:"You have won", freeSpins:"Free Spins",
     subtext:"on Starlight Princess 1000 — register now to claim & start spinning",
     claim:"Register & Claim Now", redir:"Redirecting to OCS8 Malaysia…", redirNow:"Redirecting…" },
   zh:{ homeAsk:"在找我们的官网吗？", enter:"进入 OCS8", bubble:"点击按钮试试手气！",
-    hintStart:"点击旋转 — 集齐 5 个 Scatter 赢取 188 次免费旋转", hintSpin:"转动中…",
-    hintTrigger:"5 个 Scatter — 触发免费旋转！", spin:"旋转", spinning:"旋转中…",
+    hintStart:"免费旋转！", hintSpin:"祝你好运！",
+    hintTrigger:"触发免费旋转！", spin:"旋转", spinning:"旋转中…",
     congrats:"恭喜您", won:"您已赢得", freeSpins:"免费旋转",
     subtext:"来自 Starlight Princess 1000 — 立即注册领取并开始畅玩",
     claim:"立即注册领取", redir:"正在跳转至 OCS8…", redirNow:"跳转中…" }
