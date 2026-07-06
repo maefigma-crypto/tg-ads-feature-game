@@ -30,7 +30,7 @@
     padding:8px 10px 22px;
   }
 
-  .logo{width:min(78%,340px);margin:2px auto 4px;display:block;
+  .logo{width:min(54%,215px);margin:0 auto -16px;display:block;position:relative;z-index:3;
     filter:drop-shadow(0 6px 14px rgba(0,0,0,.55))}
 
   /* ---------- slot frame ---------- */
@@ -55,6 +55,16 @@
     box-shadow:0 0 22px 6px rgba(255,206,74,.55);animation:sc 1s infinite}
   .cell.scatter img{width:100%;max-height:100%;filter:drop-shadow(0 0 8px rgba(255,206,74,.9))}
   @keyframes sc{0%,100%{opacity:.55;transform:scale(.94)}50%{opacity:1;transform:scale(1.06)}}
+  /* one-shot "just landed" pulse + expanding ring */
+  .cell.scatter.land img{animation:scatterLand .55s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes scatterLand{0%{transform:scale(.25);opacity:.2}55%{transform:scale(1.3)}100%{transform:scale(1)}}
+  .cell.scatter.land:after{content:"";position:absolute;inset:8%;border-radius:50%;
+    border:3px solid #ffe36b;box-shadow:0 0 16px #ffce4a;pointer-events:none;
+    animation:ring .62s ease-out forwards}
+  @keyframes ring{0%{transform:scale(.35);opacity:.95}100%{transform:scale(1.95);opacity:0}}
+  /* frame gives a little bounce when the feature triggers */
+  .frame.thump{animation:thump .45s ease}
+  @keyframes thump{0%,100%{transform:none}28%{transform:translateY(-5px) scale(1.012)}62%{transform:translateY(2px)}}
 
   /* ---------- controls ---------- */
   .controls{width:100%;margin-top:14px;display:flex;flex-direction:column;align-items:center}
@@ -239,6 +249,11 @@ function spin(){
       s.removeEventListener('transitionend',onEnd);
       s.dataset.landed='1';
       s.querySelectorAll('.cell').forEach(cell=>cell.classList.remove('blur'));
+      // pulse each scatter as its reel lands
+      s.querySelectorAll('.cell.scatter').forEach(cell=>{
+        cell.classList.remove('land'); void cell.offsetWidth; cell.classList.add('land');
+        if(navigator.vibrate) navigator.vibrate(18);
+      });
       stopped++;
       if(stopped===COLS) allStopped();
     };
@@ -248,8 +263,10 @@ function spin(){
 
 function allStopped(){
   hint.textContent='5 Scatters — Free Spins triggered!';
+  const fr=document.querySelector('.frame');
+  fr.classList.remove('thump'); void fr.offsetWidth; fr.classList.add('thump');
   if(navigator.vibrate) navigator.vibrate([25,40,60]);
-  setTimeout(showWin, 900);
+  setTimeout(showWin, 1100);
 }
 
 function showWin(){
